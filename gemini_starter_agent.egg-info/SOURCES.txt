@@ -2,7 +2,6 @@ LICENSE.md
 README.md
 setup.py
 gemini_starter_agent/__init__.py
-gemini_starter_agent/main.py
 gemini_starter_agent.egg-info/PKG-INFO
 gemini_starter_agent.egg-info/SOURCES.txt
 gemini_starter_agent.egg-info/dependency_links.txt
