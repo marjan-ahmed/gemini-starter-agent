@@ -57,8 +57,14 @@ You will be prompted for:
 After completion, your project structure will look like:
 
 ```Plain 
-`   /your-project-name/  ├── src/  │   └── your_project_name/  │       ├── __init__.py  │       └── main.py  ├── .env  ├── pyproject.toml  └── ...   `
-
+/your-project-name/
+├── src/
+│   └── your_project_name/
+│       ├── __init__.py
+│       └── main.py
+├── .env
+├── pyproject.toml
+└── uv.lock
 ```
 
 Example main.py
@@ -67,9 +73,41 @@ Example main.py
 Here is how the generated main.py will look:
 
 ```python
-``   import asyncio  import os  from dotenv import load_dotenv  # the openai-agents runtime packages are installed by `uv add`  from agents import Agent, Runner, RunConfig, OpenAIChatCompletionsModel, set_tracing_disabled  from openai import AsyncOpenAI  # Load environment variables  load_dotenv()  GEMINI_MODEL = os.getenv("GEMINI_MODEL")  GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")  BASE_URL = os.getenv("BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/")  # Disable tracing for cleaner output  set_tracing_disabled(True)  client: AsyncOpenAI = AsyncOpenAI(api_key=GEMINI_API_KEY, base_url=BASE_URL)  model: OpenAIChatCompletionsModel = OpenAIChatCompletionsModel(GEMINI_MODEL, client)  agent: Agent = Agent(      name="{agent_name}",      instructions="{agent_purpose}",      model=model,  )  async def main() -> None:      """Entry point for the agent CLI."""       prompt = "What is Agentic AI in haikus"  # enter a prompt here      result = await Runner.run(agent, prompt, run_config=RunConfig(model))      print(result.final_output)  if __name__ == '__main__':      asyncio.run(main())   ``
+import asyncio
+import os
+from dotenv import load_dotenv
+# the openai-agents runtime packages are installed by `uv add`
+from agents import Agent, Runner, RunConfig, OpenAIChatCompletionsModel, set_tracing_disabled
+from openai import AsyncOpenAI
 
+# Load environment variables
+load_dotenv()
+
+GEMINI_MODEL = os.getenv("GEMINI_MODEL")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+BASE_URL = os.getenv("BASE_URL")
+
+# Disable tracing for cleaner output
+set_tracing_disabled(True)
+
+client: AsyncOpenAI = AsyncOpenAI(api_key=GEMINI_API_KEY, base_url=BASE_URL)
+model: OpenAIChatCompletionsModel = OpenAIChatCompletionsModel(GEMINI_MODEL, client)
+
+agent: Agent = Agent(
+    name="{agent_name}",
+    instructions="{agent_purpose}",
+    model=model,
+)
+
+async def main() -> None:
+    prompt = "What is Agentic AI? The output format should be in haiku" # enter a prompt here
+    result = await Runner.run(agent, prompt, run_config=RunConfig(model))
+    print(result.final_output)
+
+def start():
+    asyncio.run(main())
 ```
+
 Running Your Agent
 ------------------
 
@@ -78,17 +116,22 @@ Change into the project folder:
 
 Run the agent using UV scripts:
 
-bash
+```sh
+cd [project_name]
+uv run helpful-assistant               
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   uv run helpful-assistant                # friendly script   `
+```
+
 Environment Variables
 ---------------------
 
 The .env file is automatically generated and contains:
 
-env
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   GEMINI_API_KEY=your_api_key_here  GEMINI_MODEL=your_model_here  BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/   `
+```sh
+GEMINI_API_KEY=your_api_key_here  
+GEMINI_MODEL=your_model_here  
+BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/`
+```
 
 Contributing
 ------------
