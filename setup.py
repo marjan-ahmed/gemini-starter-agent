@@ -14,17 +14,12 @@ setup(
         "python-dotenv",
         "InquirerPy",
     ],
-    python_requires=">=3.9",
+    python_requires=">=3.13",
     entry_points={
         "console_scripts": [
             "gemini-starter-agent=gemini_starter_agent.main:main",  # <-- FIXED
         ],
     },
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
     long_description=description,
     long_description_content_type="text/markdown",
 )
