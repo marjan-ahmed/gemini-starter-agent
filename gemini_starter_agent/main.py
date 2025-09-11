@@ -1,9 +1,9 @@
 import subprocess
 from pathlib import Path
 import re
-import sys
 
-# toml may not be available in some environments, give helpful message
+base_url = "https://generativelanguage.googleapis.com/v1beta/openai/"
+
 try:
     import toml
 except Exception:
@@ -40,7 +40,7 @@ def run_cmd(cmd, cwd=None, shell=False):
 
 def main():
     # --------------- Collect inputs ---------------
-    project_name = inquirer.text(message="Enter your project name:", default="agent").execute()
+    project_name = inquirer.text(message="Enter your project name:").execute()
 
     gemini_api_key = inquirer.secret(message="Enter Gemini API key:").execute()
 
@@ -75,55 +75,47 @@ def main():
 
     # --------------- Write .env ---------------
     env_file = project_path / ".env"
-    env_file.write_text(f"GEMINI_API_KEY={gemini_api_key}\nGEMINI_MODEL={model}\n", encoding="utf-8")
-    print(f"\n✅ .env written to {env_file}")
+    env_file.write_text(f"GEMINI_API_KEY={gemini_api_key}\nGEMINI_MODEL={model}\nBASE_URL={base_url}", encoding="utf-8")
 
-    print("\nAgent Name:", agent_name)
-    print("Agent Purpose:", agent_purpose)
-
-    # --------------- Create the agent package under src/<project_name>/agent ---------------
+    # --------------- Convert project name to valid Python module name ---------------
+    # Replace hyphens with underscores for the actual Python module
+    module_name = project_name.replace("-", "_")
+    
+    # Create the package root at src/<module_name>
     src_dir = project_path / "src"
-    pkg_root = src_dir / project_name
+    pkg_root = src_dir / module_name
     pkg_root.mkdir(parents=True, exist_ok=True)
 
     init_file = pkg_root / "__init__.py"
     if not init_file.exists():
         init_file.write_text("# package initializer\n", encoding="utf-8")
 
-    agent_folder = pkg_root / "agent"
-    script_import_target = f"{project_name}.agent:main"
+    # We'll write main.py directly under src/<module_name>/main.py
+    script_import_target = f"{module_name}:main"
 
-    agent_folder.mkdir(parents=True, exist_ok=True)
-    agent_init = agent_folder / "__init__.py"
-    if not agent_init.exists():
-        agent_init.write_text("# agent package\n", encoding="utf-8")
-
-    # --------------- Write agent main.py (if not present) ---------------
-    main_file = agent_folder / "main.py"
+    main_file = pkg_root / "main.py"
     if not main_file.exists():
         main_file.write_text(
             f"""import asyncio
 import os
 from dotenv import load_dotenv
 # the openai-agents runtime packages are installed by `uv add`
-from Agents import Agent, Runner, RunConfig, OpenAIChatCompletionsModel, set_tracing_disabled
-from OpenAI import AsyncOpenAI
+from agents import Agent, Runner, RunConfig, OpenAIChatCompletionsModel, set_tracing_disabled
+from openai import AsyncOpenAI
 
 # Load environment variables
 load_dotenv()
 
 GEMINI_MODEL = os.getenv("GEMINI_MODEL")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-BASE_URL = os.getenv("BASE_URL")
+BASE_URL = os.getenv("BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/")
 
 # Disable tracing for cleaner output
 set_tracing_disabled(True)
 
-# Setup OpenAI async client + model
 client: AsyncOpenAI = AsyncOpenAI(api_key=GEMINI_API_KEY, base_url=BASE_URL)
 model: OpenAIChatCompletionsModel = OpenAIChatCompletionsModel(GEMINI_MODEL, client)
 
-# Define a simple agent
 agent: Agent = Agent(
     name="{agent_name}",
     instructions="{agent_purpose}",
@@ -132,19 +124,15 @@ agent: Agent = Agent(
 
 async def main() -> None:
     \"\"\"Entry point for the agent CLI.\"\"\" 
-    while True:
-        prompt = input("Ask a question (or type 'exit' to quit): ")
-        if prompt.lower() == "exit":
-            break
-        result = await Runner.run(agent, prompt, run_config=RunConfig(model))
-        print("\\n🤖 Agent:", result.final_output, "\\n")
+    prompt = "What is Agentic AI in haikus" # enter a prompt here
+    result = await Runner.run(agent, prompt, run_config=RunConfig(model))
+    print(result.final_output)
 
 if __name__ == '__main__':
     asyncio.run(main())
 """,
             encoding="utf-8",
         )
-        print(f"\n✅ Created {main_file}")
 
     # --------------- Update pyproject.toml (PEP-621) ---------------
     script_friendly = sanitize(agent_name)
@@ -159,17 +147,18 @@ if __name__ == '__main__':
     project_table = pyproject_data.setdefault("project", {})
     scripts_table = project_table.setdefault("scripts", {})
 
+    # Use the valid module name (with underscores) for the import target
+    script_import_target = f"{module_name}.main:main"
+
     scripts_table[script_friendly] = script_import_target
     scripts_table[script_unique] = script_import_target
 
     with pyproject_file.open("w", encoding="utf-8") as f:
         toml.dump(pyproject_data, f)
 
-    print(f"\n✅ pyproject.toml updated with scripts: '{script_friendly}' and '{script_unique}'.")
     print("\n🎉 Next steps:")
-    print(f"  cd {project_path}")
-    print(f"  uv run {script_unique}   # recommended (unique, avoids collision)")
-    print(f"or\n  uv run {script_friendly}   # friendly name (works when in project folder)")
+    print(f"    cd {project_name}")
+    print(f"    uv run {script_friendly}\n")
 
 
 if __name__ == "__main__":

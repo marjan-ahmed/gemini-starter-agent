@@ -1,3 +1,5 @@
+LICENSE.md
+README.md
 setup.py
 gemini_starter_agent/__init__.py
 gemini_starter_agent/main.py
