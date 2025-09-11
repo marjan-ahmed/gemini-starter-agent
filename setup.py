@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="gemini-starter-agent",
-    version="0.1.3",
+    version="0.1.5",
     description="A CLI tool to bootstrap Gemini agents with OpenAI Agent SDK using UV.",
     author="Marjan Ahmed",
     author_email="marjanahmed.dev@gmail.com",

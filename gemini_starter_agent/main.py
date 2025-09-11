@@ -72,15 +72,10 @@ def main():
 
     print("\nInstalling runtime packages (openai-agents, python-dotenv) into the project with `uv add`...")
     run_cmd(["uv", "add", "openai-agents", "python-dotenv"], cwd=project_path)
-    
-    # --------------- Sync environment to actually install the deps ---------------
-    print("\nSyncing dependencies with `uv sync`...")
-    subprocess.run(["uv", "sync"], cwd=project_path, check=True)
-
 
     # --------------- Write .env ---------------
     env_file = project_path / ".env"
-    env_file.write_text(f"GEMINI_API_KEY={gemini_api_key} \n GEMINI_MODEL={model}\n", encoding="utf-8")
+    env_file.write_text(f"GEMINI_API_KEY={gemini_api_key}\nGEMINI_MODEL={model}\n", encoding="utf-8")
     print(f"\n✅ .env written to {env_file}")
 
     print("\nAgent Name:", agent_name)
@@ -97,6 +92,11 @@ def main():
 
     agent_folder = pkg_root / "agent"
     script_import_target = f"{project_name}.agent:main"
+
+    agent_folder.mkdir(parents=True, exist_ok=True)
+    agent_init = agent_folder / "__init__.py"
+    if not agent_init.exists():
+        agent_init.write_text("# agent package\n", encoding="utf-8")
 
     # --------------- Write agent main.py (if not present) ---------------
     main_file = agent_folder / "main.py"
