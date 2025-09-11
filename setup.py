@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="gemini-starter-agent",
-    version="0.1.0",
+    version="0.3.0",
     description="A CLI tool to bootstrap Gemini agents with OpenAI Agent SDK using UV.",
     author="Marjan Ahmed",
     author_email="marjanahmed.dev@gmail.com",
