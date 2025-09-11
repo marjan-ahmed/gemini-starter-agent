@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: gemini-starter-agent
-Version: 0.2.0
+Version: 0.6.0
 Summary: A CLI tool to bootstrap Gemini agents with OpenAI Agent SDK using UV.
 Author: Marjan Ahmed
 Author-email: marjanahmed.dev@gmail.com
@@ -9,6 +9,7 @@ Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.9
 Requires-Dist: python-dotenv
+Requires-Dist: InquirerPy
 Dynamic: author
 Dynamic: author-email
 Dynamic: classifier

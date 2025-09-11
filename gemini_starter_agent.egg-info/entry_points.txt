@@ -1,2 +1,2 @@
 [console_scripts]
-helpful-assistant = agent.main:main
+gemini-starter-agent = gemini_starter_agent.main:main

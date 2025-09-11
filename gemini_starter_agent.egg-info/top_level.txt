@@ -1,1 +1,1 @@
-gemini_starter_template
+gemini_starter_agent

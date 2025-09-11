@@ -115,4 +115,4 @@ with pyproject_file.open("w") as f:
 
 print(f"\n✅ pyproject.toml updated with script '{script_name}'.")
 print(f"\n🎉 You can now run your agent with:")
-print(f"   uv run {script_name}")
+print(f"uv run {script_name}")
