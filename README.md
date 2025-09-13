@@ -1,9 +1,10 @@
 Gemini Starter Agent 🚀 - Simplifying Gemini Chat Completions in the OpenAI Agents SDK
 ======================================================================================
 
-[https://img.shields.io/badge/python-3.13+-blue](https://img.shields.io/badge/python-3.13+-blue)[https://img.shields.io/badge/License-MIT-yellow.svg](https://img.shields.io/badge/License-MIT-yellow.svg)
+[![Python](https://img.shields.io/badge/python-3.13+-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-Gemini Starter Agent is a Python CLI tool to quickly bootstrap AI agents using the Gemini API and OpenAI Agent SDK. It leverages [UV](https://uv-pypi.org/) for project scaffolding, virtual environment management, and dependency handling.
+Gemini Starter Agent is a Python CLI tool to quickly bootstrap AI agents using the Gemini API and OpenAI Agent SDK. It leverages [UV](https://docs.astral.sh/uv/) for project scaffolding, virtual environment management, and dependency handling.
 
 Features
 --------
@@ -29,6 +30,12 @@ Install the package via pip:
 
 ```bash
 pip install gemini-starter-agent
+```
+
+Run the package 
+
+```bash
+gemini-starter-agent
 ```
 
 Usage
@@ -145,7 +152,7 @@ Contributing
 License
 -------
 
-This project is licensed under the **MIT License**. See the [LICENSE](https://github.com/marjan-ahmed/gemini-starter-agent/blob/main/LICENSE.md/) file for details.
+This project is licensed under the **MIT License**. See the [LICENSE](./LICENSE) file for details.
 
 Author
 ------
@@ -153,5 +160,5 @@ Author
 **Marjan Ahmed**
 
 *   Email: [marjanahmed.dev@gmail.com](https://mailto:marjanahmed.dev@gmail.com/)
-    
-*   GitHub: [https://github.com/marjan-ahmed](https://github.com/marjan-ahmed)
+*   GitHub: [marjan-ahmed](https://github.com/marjan-ahmed)
+*   Portfolio: [marjanahmed.vercel.app](https://marjanahmed.vercel.app/)
