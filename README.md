@@ -145,7 +145,7 @@ Contributing
 License
 -------
 
-This project is licensed under the **MIT License**. See the [LICENSE](https://license/) file for details.
+This project is licensed under the **MIT License**. See the [LICENSE](https://github.com/marjan-ahmed/gemini-starter-agent/blob/main/LICENSE.md/) file for details.
 
 Author
 ------
