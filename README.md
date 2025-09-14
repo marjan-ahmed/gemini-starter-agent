@@ -1,4 +1,4 @@
-Gemini Starter Agent 🚀 - Simplifying Gemini Chat Completions in the OpenAI Agents SDK
+Gemini Starter Agent - Simplifying Gemini Chat Completions in the OpenAI Agents SDK
 ======================================================================================
 
 [https://img.shields.io/badge/python-3.13+-blue](https://img.shields.io/badge/python-3.13+-blue)[https://img.shields.io/badge/License-MIT-yellow.svg](https://img.shields.io/badge/License-MIT-yellow.svg)
@@ -76,7 +76,6 @@ Here is how the generated main.py will look:
 import asyncio
 import os
 from dotenv import load_dotenv
-# the openai-agents runtime packages are installed by `uv add`
 from agents import Agent, Runner, RunConfig, OpenAIChatCompletionsModel, set_tracing_disabled
 from openai import AsyncOpenAI
 
@@ -152,6 +151,6 @@ Author
 
 **Marjan Ahmed**
 
-*   Email: [marjanahmed.dev@gmail.com](https://mailto:marjanahmed.dev@gmail.com/)
-    
+*   Email: [marjanahmed.dev@gmail.com](https://mailto:marjanahmed.dev@gmail.com/)    
 *   GitHub: [https://github.com/marjan-ahmed](https://github.com/marjan-ahmed)
+*   Portfolio: [https://marjanahmed.vercel.app](https://marjanahmed.vercel.app)
