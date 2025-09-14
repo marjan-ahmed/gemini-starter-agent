@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: gemini-starter-agent
-Version: 0.1.1
+Version: 0.1.2
 Summary: A CLI tool to bootstrap Gemini agents with OpenAI Agent SDK using UV.
 Author: Marjan Ahmed
 Author-email: marjanahmed.dev@gmail.com
@@ -18,12 +18,13 @@ Dynamic: requires-dist
 Dynamic: requires-python
 Dynamic: summary
 
-Gemini Starter Agent ðŸš€ - Simplifying Gemini Chat Completions in the OpenAI Agents SDK
+Gemini Starter Agent - Simplifying Gemini Chat Completions in the OpenAI Agents SDK
 ======================================================================================
 
-[https://img.shields.io/badge/python-3.13+-blue](https://img.shields.io/badge/python-3.13+-blue)[https://img.shields.io/badge/License-MIT-yellow.svg](https://img.shields.io/badge/License-MIT-yellow.svg)
+[![Python](https://img.shields.io/badge/python-3.13+-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-Gemini Starter Agent is a Python CLI tool to quickly bootstrap AI agents using the Gemini API and OpenAI Agent SDK. It leveragesÂ [UV](https://uv-pypi.org/)Â for project scaffolding, virtual environment management, and dependency handling.
+Gemini Starter Agent is a Python CLI tool to quickly bootstrap AI agents using the Gemini API and OpenAI Agent SDK. It leveragesÂ [UV](https://docs.astral.sh/uv/)Â for project scaffolding, virtual environment management, and dependency handling.
 
 Features
 --------
@@ -49,6 +50,12 @@ Install the package via pip:
 
 ```bash
 pip install gemini-starter-agent
+```
+
+Run the package 
+
+```bash
+gemini-starter-agent
 ```
 
 Usage
@@ -96,7 +103,6 @@ Here is how the generated main.py will look:
 import asyncio
 import os
 from dotenv import load_dotenv
-# the openai-agents runtime packages are installed by `uv add`
 from agents import Agent, Runner, RunConfig, OpenAIChatCompletionsModel, set_tracing_disabled
 from openai import AsyncOpenAI
 
@@ -165,7 +171,7 @@ Contributing
 License
 -------
 
-This project is licensed under theÂ **MIT License**. See theÂ [LICENSE](https://license/)Â file for details.
+This project is licensed under theÂ **MIT License**. See theÂ [LICENSE](./LICENSE) file for details.
 
 Author
 ------
