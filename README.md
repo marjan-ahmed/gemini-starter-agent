@@ -3,6 +3,7 @@ Gemini Starter Agent - Simplifying Gemini Chat Completions in the OpenAI Agents 
 
 [![Python](https://img.shields.io/badge/python-3.13+-blue)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/gemini-starter-agent?period=total&units=INTERNATIONAL_SYSTEM&left_color=GRAY&right_color=BRIGHTGREEN&left_text=downloads)](https://pepy.tech/projects/gemini-starter-agent)
 
 Gemini Starter Agent is a Python CLI tool to quickly bootstrap AI agents using the Gemini API and OpenAI Agent SDK. It leverages [UV](https://docs.astral.sh/uv/) for project scaffolding, virtual environment management, and dependency handling.
 
